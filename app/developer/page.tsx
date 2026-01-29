@@ -8,7 +8,7 @@ export default function Portfolio() {
       id: 1,
       title: "E-Commerce Platform",
       description: "Full-stack shopping platform with cart and payment integration",
-      url: "https://localhost:3000/",
+      url: "http://localhost:3000/",
       tags: ["React", "Node.js", "MongoDB"]
     },
     {
