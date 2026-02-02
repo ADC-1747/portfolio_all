@@ -26,6 +26,56 @@ export default function Home() {
           </p>
 
           {/* Experience Cards */}
+
+            
+          {/* AI / ML Experience + Streaming */}
+          <div className="w-full">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-black">
+              {/* Header */}
+              <div className="mb-2">
+                <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  Project Associate
+                </h3>
+                <p className="text-xs text-zinc-500">
+                  Department of Data Science and AI, IIT Madras
+                </p>
+              </div>
+
+              {/* Live indicator */}
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs text-zinc-500">AI / ML Work</span>
+              </div>
+
+              {/* Streaming text */}             
+              {/* Horizontal scrollable container with vertical lines */}
+              <div className="w-full overflow-x-auto border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 bg-zinc-50 dark:bg-zinc-900">
+                <div className="inline-block min-w-max">
+                  <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <p className="typing-loop delay-1 cursor">
+                      Designed pipeline for alpha generation using LLMs.
+                    </p>
+
+                    <p className="typing-loop delay-2 cursor">
+                      Fine-tuning LLMs using LoRA and parameter-efficient methods.
+                    </p>
+
+                    <p className="typing-loop delay-3 cursor">
+                      Trained NNs for sales forecasting, reduced MAPE from 16% to 2%.
+                    </p>
+
+                    <p className="typing-loop delay-4 cursor">
+                      Trained LSTM for L1 and L2 level Order Book prediction.
+                    </p>
+
+                    <p className="typing-loop delay-5 cursor">
+                      Designed fully automated data scraping pipeline for data collection.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
           <div className="grid w-full gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900">
               <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
@@ -52,52 +102,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* AI / ML Streaming Card */}
-            
-          {/* AI / ML Experience + Streaming */}
-          <div className="w-full">
-            <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-black">
-              {/* Header */}
-              <div className="mb-2">
-                <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                  Project Associate
-                </h3>
-                <p className="text-xs text-zinc-500">
-                  Department of Data Science and AI, IIT Madras
-                </p>
-              </div>
 
-              {/* Live indicator */}
-              <div className="mb-3 flex items-center justify-between">
-                <span className="text-xs text-zinc-500">AI / ML Work Stream</span>
-                <span className="text-xs text-zinc-500">Live</span>
-              </div>
 
-              {/* Streaming text */}
-              <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
-                <p className="typing-loop delay-1">
-                  Training transformer models on time-series embeddings
-                </p>
-
-                <p className="typing-loop delay-2">
-                  Fine-tuning LLMs using LoRA and parameter-efficient methods
-                </p>
-
-                <p className="typing-loop delay-3">
-                  Comparing XGBoost vs LSTM for noisy structured data
-                </p>
-
-                <p className="typing-loop delay-4">
-                  Designing feature engineering pipelines in Python
-                </p>
-
-                <p className="typing-loop delay-5 cursor">
-                  Reading research papers on attention mechanisms
-                </p>
-              </div>
-            </div>
-          </div>
-         
           {/* Persona Links */}
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Who are you looking for?
