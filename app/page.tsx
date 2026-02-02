@@ -21,13 +21,12 @@ export default function Home() {
 
           {/* Summary */}
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            I design and build data-driven systems spanning quantitative
-            finance, scalable software, and applied machine learning.
+            I design and build data-driven systems spanning applied machine learning, quantitative
+            finance, scalable software.
           </p>
 
           {/* Experience Cards */}
 
-            
           {/* AI / ML Experience + Streaming */}
           <div className="w-full">
             <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-black">
@@ -37,7 +36,7 @@ export default function Home() {
                   Project Associate
                 </h3>
                 <p className="text-xs text-zinc-500">
-                  Department of Data Science and AI, IIT Madras
+                  Department of Data Science and AI, IIT Madras · Jan 2025 — Present
                 </p>
               </div>
 
@@ -46,62 +45,94 @@ export default function Home() {
                 <span className="text-xs text-zinc-500">AI / ML Work</span>
               </div>
 
-              {/* Streaming text */}             
-              {/* Horizontal scrollable container with vertical lines */}
+              {/* Streaming text */}
               <div className="w-full overflow-x-auto border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 bg-zinc-50 dark:bg-zinc-900">
                 <div className="inline-block min-w-max">
                   <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
                     <p className="typing-loop delay-1 cursor">
                       Designed pipeline for alpha generation using LLMs.
                     </p>
-
                     <p className="typing-loop delay-2 cursor">
                       Fine-tuning LLMs using LoRA and parameter-efficient methods.
                     </p>
-
                     <p className="typing-loop delay-3 cursor">
                       Trained NNs for sales forecasting, reduced MAPE from 16% to 2%.
                     </p>
-
                     <p className="typing-loop delay-4 cursor">
                       Trained LSTM for L1 and L2 level Order Book prediction.
                     </p>
-
                     <p className="typing-loop delay-5 cursor">
                       Designed fully automated data scraping pipeline for data collection.
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-         
-          <div className="grid w-full gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900">
-              <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                Full Stack Developer
-              </h3>
-              <p className="text-xs text-zinc-500">
-                Sudha Gopalakrishnan Brain Centre, IIT Madras · 2024 — 2025
-              </p>
-              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                Building scalable systems, internal platforms, and data
-                pipelines used in production.
-              </p>
-            </div>
 
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900">
-              <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                Quant Research Consultant
-              </h3>
-              <p className="text-xs text-zinc-500">WorldQuant · 2024</p>
-              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                Alpha research, factor modeling, backtesting, and signal
-                validation.
-              </p>
+              {/* Know more link */}
+              <Link
+                href="/aiml"
+                className="mt-3 inline-block text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+              >
+                Know more →
+              </Link>
             </div>
           </div>
 
+          {/* Full Stack Developer */}
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+              Full Stack Developer
+            </h3>
+            <p className="text-xs text-zinc-500">
+              Sudha Gopalakrishnan Brain Centre, IIT Madras · Jul 2024 — Dec 2025
+            </p>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+              Contributed to the DHARANI project and built scalable systems, internal platforms, and AI pipelines used in production.
+            </p>
+            {/* Links */}
+              <div className="mt-2 flex gap-4">
+                <Link
+                  href="/developer"
+                  className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                >
+                  Know more →
+                </Link>
+                <Link
+                  href="/aiml"
+                  className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                >
+                  Ask AI →
+                </Link>
+              </div>
+          </div>
+
+          {/* Quant Research Consultant */}
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+              Quant Research Consultant
+            </h3>
+            <p className="text-xs text-zinc-500">WorldQuant · 2024 — Present</p>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+              Alpha research, factor modeling, backtesting, and signal validation.
+            </p>
+
+            {/* Links */}
+            <div className="mt-2 flex gap-4">
+              <Link
+                href="/quant"
+                className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+              >
+                Know more →
+              </Link>
+              <Link
+                href="/aiml"
+                className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+              >
+                Ask AI →
+              </Link>
+            </div>
+          </div>
+            
 
 
           {/* Persona Links */}
@@ -147,7 +178,7 @@ export default function Home() {
         <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-600 dark:text-zinc-400">
           {/* GitHub */}
           <a
-            href="https://github.com/username"
+            href="https://github.com/ADC-1747"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 hover:underline"
@@ -164,7 +195,7 @@ export default function Home() {
 
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com/in/username"
+            href="https://linkedin.com/in/ayush-c-86a3492a4/"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 hover:underline"
@@ -181,7 +212,7 @@ export default function Home() {
 
           {/* LeetCode */}
           <a
-            href="https://leetcode.com/username"
+            href="https://leetcode.com/u/adc_17/"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 hover:underline"
@@ -199,7 +230,7 @@ export default function Home() {
 
           {/* Static Activity Summary */}
           <p className="text-sm text-zinc-500 dark:text-zinc-500">
-            • 500+ LeetCode problems solved · Active open-source contributor
+            • Active LeetCode problems solver · Active open-source contributor
           </p>
         </section>
       </main>
