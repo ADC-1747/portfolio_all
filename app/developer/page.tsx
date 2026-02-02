@@ -6,16 +6,16 @@ export default function Portfolio() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "DHARANI Project",
       description: "Full-stack shopping platform with cart and payment integration",
-      url: "http://localhost:3000/",
-      tags: ["React", "Node.js", "MongoDB"]
+      url: "https://brainportal.humanbrain.in/code/2dviewer/annotation/public?data=3&region=-1&section=1291",
+      tags: ["Angular", "Django", "MySQL"]
     },
     {
       id: 2,
-      title: "Book Management App",
+      title: "Portfolio",
       description: "Collaborative task tracker with real-time updates",
-      url: "http://localhost:3002",
+      url: "https://white-flower-06778ef00.1.azurestaticapps.net/",
       tags: ["Next.js", "TypeScript", "Tailwind"]
     },
     {
