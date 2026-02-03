@@ -3,7 +3,7 @@ name: Update GitHub Contributions
 
 on:
   schedule:
-    - cron: "30 16 * * *" # daily
+    - cron: "00 0 * * *" # daily
   workflow_dispatch:
 
 jobs:
@@ -25,12 +25,12 @@ jobs:
               "query": "query { user(login: \"ADC-1747\") { contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }"
             }' \
           | jq '.data.user.contributionsCollection.contributionCalendar.weeks' \
-          > public/contributions.json
+          > public/gh_contributions.json
 
       - name: Commit updated data
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add public/contributions.json
+          git add public/gh_contributions.json
           git commit -m "chore: update github contributions" || exit 0
           git push
