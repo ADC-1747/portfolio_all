@@ -1,0 +1,36 @@
+
+name: Update GitHub Contributions
+
+on:
+  schedule:
+    - cron: "30 16 * * *" # daily
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch contributions
+        env:
+          TOKEN: ${{ secrets.GH_READ_TOKEN }}
+        run: |
+          curl -X POST https://api.github.com/graphql \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "query": "query { user(login: \"ADC-1747\") { contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }"
+            }' \
+          | jq '.data.user.contributionsCollection.contributionCalendar.weeks' \
+          > public/contributions.json
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add public/contributions.json
+          git commit -m "chore: update github contributions" || exit 0
+          git push
