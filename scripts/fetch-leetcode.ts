@@ -3,19 +3,67 @@ import fs from "fs";
 import path from "path";
 
 const USERNAME = "adc_17";
-const OUTPUT_PATH = path.join(process.cwd(), "public/lc_contributions.json");
+const OUTPUT_PATH = path.join(
+  process.cwd(),
+  "public/lc_contributions.json"
+);
 
 type Calendar = Record<string, number>;
 
-async function fetchCalendar(): Promise<Calendar> {
+function buildWeeks(calendar: Calendar) {
+  const days = Object.entries(calendar)
+    .map(([ts, count]) => ({
+      date: new Date(Number(ts) * 1000),
+      count
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  if (!days.length) return [];
+
+  const start = new Date(days[0].date);
+  start.setDate(start.getDate() - start.getDay());
+
+  const end = new Date(days[days.length - 1].date);
+  end.setDate(end.getDate() + (6 - end.getDay()));
+
+  const map = new Map(
+    days.map(d => [d.date.toISOString().slice(0, 10), d.count])
+  );
+
+  const weeks = [];
+  let current = new Date(start);
+
+  while (current <= end) {
+    const week = [];
+    for (let i = 0; i < 7; i++) {
+      const key = current.toISOString().slice(0, 10);
+      week.push({
+        date: key,
+        count: map.get(key) ?? 0
+      });
+      current.setDate(current.getDate() + 1);
+    }
+    weeks.push(week);
+  }
+
+  return weeks;
+}
+
+async function main() {
   const res = await fetch("https://leetcode.com/graphql", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: `
-        query submissionCalendar($username: String!) {
+        query userProfile($username: String!) {
           matchedUser(username: $username) {
             submissionCalendar
+            submitStats {
+              acSubmissionNum {
+                difficulty
+                count
+              }
+            }
           }
         }
       `,
@@ -24,40 +72,25 @@ async function fetchCalendar(): Promise<Calendar> {
   });
 
   const json = await res.json();
-  return JSON.parse(json.data.matchedUser.submissionCalendar);
-}
 
-function buildWeeks(calendar: Calendar) {
-  const entries = Object.entries(calendar)
-    .map(([ts, count]) => ({
-      date: new Date(Number(ts) * 1000).toISOString().slice(0, 10),
-      count
-    }))
-    .sort((a, b) => a.date.localeCompare(b.date));
+  const calendar = JSON.parse(
+    json.data.matchedUser.submissionCalendar
+  );
 
-  const weeks: { days: { date: string; count: number }[] }[] = [];
-  let week: any[] = [];
+  const stats = json.data.matchedUser.submitStats.acSubmissionNum;
 
-  entries.forEach((day) => {
-    if (week.length === 7) {
-      weeks.push({ days: week });
-      week = [];
-    }
-    week.push(day);
-  });
+  const solved = {
+    total: stats.find((s: any) => s.difficulty === "All")?.count ?? 0,
+    easy: stats.find((s: any) => s.difficulty === "Easy")?.count ?? 0,
+    medium: stats.find((s: any) => s.difficulty === "Medium")?.count ?? 0,
+    hard: stats.find((s: any) => s.difficulty === "Hard")?.count ?? 0
+  };
 
-  if (week.length) weeks.push({ days: week });
-
-  return weeks;
-}
-
-async function main() {
-  const calendar = await fetchCalendar();
   const weeks = buildWeeks(calendar);
 
   fs.writeFileSync(
     OUTPUT_PATH,
-    JSON.stringify({ weeks }, null, 2)
+    JSON.stringify({ weeks, solved }, null, 2)
   );
 
   console.log("LeetCode contributions updated");

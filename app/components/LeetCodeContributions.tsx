@@ -1,188 +1,110 @@
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Day = {
   date: string;
   count: number;
 };
 
-type Week = {
-  days: Day[];
+type SolvedStats = {
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
 };
 
-const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
 export default function LeetCodeContributions() {
-  const [weeks, setWeeks] = useState<Week[]>([]);
+  const [weeks, setWeeks] = useState<Day[][]>([]);
+  const [solved, setSolved] = useState<SolvedStats | null>(null);
 
   useEffect(() => {
     fetch("/lc_contributions.json")
-      .then((r) => {
-        if (!r.ok) throw new Error("Failed to load LeetCode data");
-        return r.json();
+      .then(res => res.json())
+      .then(data => {
+        setWeeks(data.weeks);
+        setSolved(data.solved);
       })
-      .then((data) => setWeeks(data.weeks))
       .catch(console.error);
   }, []);
 
-  /* ---------------------------------------------
-   * Flatten days (chronological)
-   * --------------------------------------------- */
-  const allDays = useMemo(() => {
-    return weeks
-      .flatMap((w) => w.days)
-      .filter((d) => d.date)
-      .sort(
-        (a, b) =>
-          new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
-  }, [weeks]);
-
-  /* ---------------------------------------------
-   * Streak calculations
-   * --------------------------------------------- */
-  const { currentStreak, maxStreak } = useMemo(() => {
-    let max = 0;
-    let temp = 0;
-
-    for (const d of allDays) {
-      if (d.count > 0) {
-        temp++;
-        max = Math.max(max, temp);
-      } else {
-        temp = 0;
-      }
-    }
-
-    let current = 0;
-    for (let i = allDays.length - 1; i >= 0; i--) {
-      if (allDays[i].count > 0) {
-        current++;
-      } else if (current > 0) {
-        break;
-      }
-    }
-
-    return { currentStreak: current, maxStreak: max };
-  }, [allDays]);
-
-  /* ---------------------------------------------
-   * LeetCode color scale
-   * --------------------------------------------- */
   const color = (count: number) => {
-    if (count === 0) return "bg-[#ebedf0] dark:bg-[#161b22]";
-    if (count < 2) return "bg-[#ffe58f]";
-    if (count < 5) return "bg-[#ffc53d]";
-    if (count < 10) return "bg-[#73d13d]";
-    return "bg-[#237804]";
+    if (count === 0) return "bg-zinc-200 dark:bg-zinc-800";
+    if (count < 2) return "bg-green-300";
+    if (count < 4) return "bg-green-400";
+    if (count < 6) return "bg-green-500";
+    return "bg-green-600";
   };
 
-  /* ---------------------------------------------
-   * Normalize weeks to 7 rows
-   * --------------------------------------------- */
-  const normalizedWeeks = weeks.map((week) => {
-    const days = [...week.days];
-    while (days.length < 7) {
-      days.push({ date: "", count: 0 });
-    }
-    return days;
-  });
-
-  /* ---------------------------------------------
-   * Month labels
-   * --------------------------------------------- */
-  const monthLabels = normalizedWeeks.map((week) => {
-    const d = week[0]?.date;
-    if (!d) return "";
-    const date = new Date(d);
-    return date.getDate() <= 7
-      ? date.toLocaleString("en-US", { month: "short" })
-      : "";
-  });
-
   return (
-    <div className="rounded-md border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-black">
+    <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-black">
       {/* Header */}
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3">
         <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-          LeetCode Submissions
+          LeetCode Activity
         </h3>
-        <span className="text-xs text-zinc-500">Updated daily</span>
+        <p className="text-xs text-zinc-500">
+          Submissions over the last year
+        </p>
       </div>
 
-      {/* Streaks */}
-      <div className="mb-3 flex gap-8 text-sm">
-        <div>
-          <p className="text-xs text-zinc-500">Current streak</p>
-          <p className="font-semibold text-zinc-900 dark:text-zinc-100">
-            {currentStreak} days
-          </p>
+      {/* Solved stats */}
+      {solved && (
+        <div className="mb-4 flex flex-wrap gap-6 text-sm">
+          <div>
+            <p className="text-xs text-zinc-500">Total solved</p>
+            <p className="font-semibold text-zinc-900 dark:text-zinc-100">
+              {solved.total}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-zinc-500">Easy</p>
+            <p className="font-semibold text-green-600">
+              {solved.easy}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-zinc-500">Medium</p>
+            <p className="font-semibold text-yellow-600">
+              {solved.medium}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-zinc-500">Hard</p>
+            <p className="font-semibold text-red-600">
+              {solved.hard}
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="text-xs text-zinc-500">Max streak</p>
-          <p className="font-semibold text-zinc-900 dark:text-zinc-100">
-            {maxStreak} days
-          </p>
-        </div>
-      </div>
+      )}
 
-      {/* Graph */}
+      {/* Grid */}
       <div className="relative">
         <div className="flex overflow-x-auto pb-2">
-          {/* Day labels */}
-          <div className="mr-2 flex flex-col justify-between text-[10px] text-zinc-500">
-            {DAYS.map((d, i) =>
-              i % 2 === 0 ? (
-                <span key={d}>{d}</span>
-              ) : (
-                <span key={d}>&nbsp;</span>
-              )
-            )}
-          </div>
-
-          <div>
-            {/* Month labels */}
-            <div className="mb-1 grid grid-flow-col auto-cols-[11px] gap-[3px] text-[10px] text-zinc-500">
-              {monthLabels.map((m, i) => (
-                <span key={i}>{m}</span>
+          {weeks.map((week, i) => (
+            <div key={i} className="mr-2 flex flex-col gap-2">
+              {week.map(day => (
+                <div
+                  key={day.date}
+                  title={`${day.date}: ${day.count} submissions`}
+                  className={`h-3 w-3 rounded-sm ${color(day.count)}`}
+                />
               ))}
             </div>
-
-            {/* Contribution grid */}
-            <div className="grid grid-flow-col auto-cols-[11px] grid-rows-7 gap-[3px]">
-              {normalizedWeeks.map((week, wi) =>
-                week.map((day, di) => (
-                  <div
-                    key={`${wi}-${di}`}
-                    title={
-                      day.date
-                        ? `${day.count} submissions on ${day.date}`
-                        : ""
-                    }
-                    className={`h-[11px] w-[11px] rounded-[2px] ${color(
-                      day.count
-                    )}`}
-                  />
-                ))
-              )}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="mt-3 flex items-center gap-2 text-[10px] text-zinc-500">
-        <span>Less</span>
-        {[0, 1, 3, 7, 10].map((c) => (
-          <div
-            key={c}
-            className={`h-[11px] w-[11px] rounded-[2px] ${color(c)}`}
-          />
-        ))}
-        <span>More</span>
-      </div>
+      {/* Footer */}
+      <a
+        href="https://leetcode.com/u/adc_17/"
+        target="_blank"
+        rel="noreferrer"
+        className="mt-3 inline-block text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+      >
+        View LeetCode profile →
+      </a>
     </div>
   );
 }
