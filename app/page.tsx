@@ -1,5 +1,7 @@
 
 import Link from "next/link";
+import GitHubContributions from "./components/GitHubContributions";
+import LeetCodeContributions from "./components/LeetCodeContributions";
 
 export default function Home() {
   return (
@@ -172,6 +174,8 @@ export default function Home() {
             Download Resume
           </a>
 
+      <GitHubContributions />
+      <LeetCodeContributions />
 
 
         {/* Social Links */}
