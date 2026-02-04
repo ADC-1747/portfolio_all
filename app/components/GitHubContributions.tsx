@@ -108,7 +108,7 @@ export default function GitHubContributions() {
         <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
           GitHub Contributions
         </h3>
-        <span className="text-xs text-zinc-500">Updated daily</span>
+        <span className="text-xs text-zinc-500">Last 52 weeks</span>
       </div>
 
       {/* Streaks */}
