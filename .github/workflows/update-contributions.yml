@@ -8,35 +8,30 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
+  # -------------------------------------------------
+  # 1️⃣ Update contributions + commit
+  # -------------------------------------------------
   update:
     runs-on: ubuntu-latest
 
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+
     steps:
-      # -------------------------
-      # Checkout
-      # -------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -------------------------
-      # Setup Node
-      # -------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # -------------------------
-      # Install deps (needed for leetcode script)
-      # -------------------------
       - name: Install dependencies
         run: npm install
 
-      # -------------------------
-      # Fetch GitHub Contributions
-      # -------------------------
       - name: Fetch GitHub contributions
         env:
           TOKEN: ${{ secrets.GH_READ_TOKEN }}
@@ -50,22 +45,63 @@ jobs:
           | jq '.data.user.contributionsCollection.contributionCalendar.weeks' \
           > public/gh_contributions.json
 
-      # -------------------------
-      # Fetch LeetCode Contributions
-      # -------------------------
       - name: Fetch LeetCode contributions
         run: node scripts/fetch-leetcode.js
 
-      # -------------------------
-      # Commit & Push (single commit)
-      # -------------------------
       - name: Commit updated data
+        id: commit
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
           git add public/gh_contributions.json public/lc_contributions.json
 
-          git commit -m "chore: update GitHub & LeetCode contributions" || echo "No changes to commit"
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update GitHub & LeetCode contributions"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
-          git push
+  # -------------------------------------------------
+  # 2️⃣ Build & Deploy to Azure Static Web Apps
+  # -------------------------------------------------
+  build_and_deploy_job:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+          script: |
+            const core = require('@actions/core')
+            return await core.getIDToken()
+          result-encoding: string
+
+      - name: Build And Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_FLOWER_06778EF00 }}
+          action: upload
+          app_location: "/"
+          api_location: ""
+          output_location: "out"
+          github_id_token: ${{ steps.idtoken.outputs.result }}
