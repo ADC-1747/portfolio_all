@@ -63,6 +63,7 @@ jobs:
             git commit -m "chore: update GitHub & LeetCode contributions"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
   # -------------------------------------------------
   # 2️⃣ Build App (new step before deploy)
@@ -88,6 +89,12 @@ jobs:
       - name: Build the app
         run: npm run build
 
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: out
+
   # -------------------------------------------------
   # 3️⃣ Build & Deploy to Azure Static Web Apps
   # -------------------------------------------------
@@ -103,8 +110,16 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build
+          path: out
+
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
+
       - name: Get Id Token
         uses: actions/github-script@v6
         id: idtoken
@@ -113,6 +128,7 @@ jobs:
                const coredemo = require('@actions/core')
                return await coredemo.getIDToken()
            result-encoding: string
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
