@@ -1,0 +1,71 @@
+name: Update GitHub & LeetCode Contributions
+
+on:
+  schedule:
+    # Runs daily at 12:00 AM UTC (5:30 AM IST)
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # -------------------------
+      # Checkout
+      # -------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -------------------------
+      # Setup Node
+      # -------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # -------------------------
+      # Install deps (needed for leetcode script)
+      # -------------------------
+      - name: Install dependencies
+        run: npm install
+
+      # -------------------------
+      # Fetch GitHub Contributions
+      # -------------------------
+      - name: Fetch GitHub contributions
+        env:
+          TOKEN: ${{ secrets.GH_READ_TOKEN }}
+        run: |
+          curl -s -X POST https://api.github.com/graphql \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "query": "query { user(login: \"ADC-1747\") { contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }"
+            }' \
+          | jq '.data.user.contributionsCollection.contributionCalendar.weeks' \
+          > public/gh_contributions.json
+
+      # -------------------------
+      # Fetch LeetCode Contributions
+      # -------------------------
+      - name: Fetch LeetCode contributions
+        run: node scripts/fetch-leetcode.js
+
+      # -------------------------
+      # Commit & Push (single commit)
+      # -------------------------
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add public/gh_contributions.json public/lc_contributions.json
+
+          git commit -m "chore: update GitHub & LeetCode contributions" || echo "No changes to commit"
+
+          git push

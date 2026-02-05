@@ -2,6 +2,7 @@
 import Link from "next/link";
 import GitHubContributions from "./components/GitHubContributions";
 import LeetCodeContributions from "./components/LeetCodeContributions";
+import StreamingText from "./components/StreamingText";
 
 export default function Home() {
   return (
@@ -177,6 +178,16 @@ export default function Home() {
       <GitHubContributions />
       <LeetCodeContributions />
 
+
+
+<StreamingText
+  commands={[
+    "npm run build",
+    "pnpm dev",
+    "git commit -m \"initial commit\"",
+  ]}
+  className="text-green-500"
+/>
 
         {/* Social Links */}
         <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-600 dark:text-zinc-400">
