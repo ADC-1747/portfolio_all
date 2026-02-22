@@ -17,17 +17,23 @@ export const metadata: Metadata = {
   description: "Welcome to the portfolio of Ayush !",
 };
 
+import Navbar from "./components/Navbar";
+import { Providers } from "./components/Providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
