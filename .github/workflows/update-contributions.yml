@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_READ_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -64,82 +66,3 @@ jobs:
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-
-  # -------------------------------------------------
-  # 2️⃣ Build App (new step before deploy)
-  # -------------------------------------------------
-  build:
-    needs: update
-    if: needs.update.outputs.changed == 'true'
-    runs-on: ubuntu-latest
-    name: Build App
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the app
-        run: npm run build
-
-      - name: Upload build output
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-build
-          path: out
-
-  # -------------------------------------------------
-  # 3️⃣ Build & Deploy to Azure Static Web Apps
-  # -------------------------------------------------
-  build_and_deploy_job:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Build and Deploy Job
-    permissions:
-       id-token: write
-       contents: read
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-          lfs: false
-
-      - name: Download build output
-        uses: actions/download-artifact@v4
-        with:
-          name: app-build
-          path: out
-
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
-
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
-
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_FLOWER_06778EF00 }}
-          action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "out" # Built app content directory - optional
-          skip_app_build: true   # prevent Oryx from rebuilding
-          github_id_token: ${{ steps.idtoken.outputs.result }}
-          ###### End of Repository/Build Configurations ######
