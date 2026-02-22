@@ -38,10 +38,10 @@ export default function Aiml() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 p-4">
-      <div className="flex flex-col w-full max-w-xl h-[80vh] bg-gray-850 rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
+    <div className="flex items-center justify-center min-h-screen bg-zinc-50 dark:bg-black p-4">
+      <div className="flex flex-col w-full max-w-xl h-[80vh] bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800">
         {/* Header */}
-        <div className="p-5 bg-gray-900 text-white text-center font-bold text-2xl border-b border-gray-700 shadow-sm">
+        <div className="p-5 bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-center font-bold text-2xl border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
           AI/ML Portfolio Chat
         </div>
 
@@ -50,11 +50,10 @@ export default function Aiml() {
           {messages.map((msg, idx) => (
             <div
               key={idx}
-              className={`max-w-[75%] p-4 rounded-2xl break-words shadow-sm transform transition duration-200 ${
-                msg.sender === 'user'
-                  ? 'bg-blue-600 text-white self-end hover:scale-105'
-                  : 'bg-gray-700 text-gray-100 self-start hover:scale-105'
-              }`}
+              className={`max-w-[75%] p-4 rounded-2xl break-words shadow-sm transform transition duration-200 ${msg.sender === 'user'
+                  ? 'bg-zinc-900 text-zinc-50 self-end hover:scale-105 dark:bg-zinc-100 dark:text-zinc-950'
+                  : 'bg-zinc-100 text-zinc-900 self-start hover:scale-105 dark:bg-zinc-800 dark:text-zinc-100'
+                }`}
             >
               <strong>{msg.sender === 'user' ? 'You' : 'Ayush'}:</strong> {msg.text}
             </div>
@@ -62,7 +61,7 @@ export default function Aiml() {
 
           {/* Typing indicator */}
           {isTyping && (
-            <div className="max-w-[50%] p-3 rounded-2xl bg-gray-700 text-gray-100 self-start animate-pulse">
+            <div className="max-w-[50%] p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 self-start animate-pulse">
               Ayush is typing...
             </div>
           )}
@@ -71,9 +70,9 @@ export default function Aiml() {
         </div>
 
         {/* Input area */}
-        <div className="p-5 bg-gray-900 border-t border-gray-700 flex gap-3">
+        <div className="p-5 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 flex gap-3">
           <input
-            className="flex-1 p-4 rounded-xl bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="flex-1 p-4 rounded-xl bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-500 transition border border-zinc-200 dark:border-zinc-800"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -81,7 +80,7 @@ export default function Aiml() {
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           />
           <button
-            className="px-6 py-4 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-semibold shadow-lg transition transform hover:-translate-y-0.5"
+            className="px-6 py-4 bg-zinc-900 dark:bg-zinc-100 text-zinc-50 dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-white rounded-xl font-semibold shadow-lg transition transform hover:-translate-y-0.5 active:scale-95"
             onClick={handleSend}
           >
             Send

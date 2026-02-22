@@ -9,6 +9,7 @@ const navLinks = [
     { name: "AI/ML", href: "/aiml" },
     { name: "Developer", href: "/developer" },
     { name: "Quant", href: "/quant" },
+    { name: "Resume", href: "/resume.pdf", isDownload: true },
 ];
 
 const socialLinks = [
@@ -47,14 +48,33 @@ export default function Navbar() {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
             <div className="flex items-center gap-1 rounded-full border border-zinc-200 bg-white/70 px-4 py-2 backdrop-blur-md dark:border-zinc-800 dark:bg-black/70">
-                <div className="flex items-center gap-1 mr-2 border-r border-zinc-200 pr-2 dark:border-zinc-800">
+                <div className="flex items-center gap-0.5 mr-2 border-r border-zinc-200 pr-2 dark:border-zinc-800">
                     {navLinks.map((link) => {
                         const isActive = pathname === link.href;
+                        if (link.isDownload) {
+                            return (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    download
+                                    className="flex items-center justify-center rounded-full px-2.5 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                                    title="Download Resume"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        className="h-3.5 w-3.5 fill-current"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
+                                    </svg>
+                                </a>
+                            );
+                        }
                         return (
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${isActive
+                                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${isActive
                                     ? "bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50"
                                     : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                                     }`}
