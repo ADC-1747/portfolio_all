@@ -231,50 +231,6 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Project Insights Section */}
-        <div className="max-w-5xl mx-auto mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <div className="grid md:grid-cols-3 gap-8 p-8 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl">
-            {/* Tech Stack */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Tech Stack</h4>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.fullStack.map((tech, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-50 dark:text-zinc-950 text-[10px] font-bold rounded-full shadow-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Contributions */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Contributions</h4>
-              <ul className="space-y-2">
-                {selectedProject.contributions.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Key Features */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Key Features</h4>
-              <ul className="space-y-2">
-                {selectedProject.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-xs font-medium text-zinc-900 dark:text-zinc-100">
-                    <svg className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
 
         {/* Interaction Guide */}
         <div className="max-w-md mx-auto mb-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
@@ -354,6 +310,51 @@ export default function Portfolio() {
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 h-2.5 bg-zinc-400 dark:bg-zinc-700 rounded-t-xl"></div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Project Insights Section */}
+        <div className="max-w-5xl mx-auto mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="grid md:grid-cols-3 gap-8 p-8 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl">
+            {/* Tech Stack */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Tech Stack</h4>
+              <div className="flex flex-wrap gap-2">
+                {selectedProject.fullStack.map((tech, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-50 dark:text-zinc-950 text-[10px] font-bold rounded-full shadow-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Contributions */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Contributions</h4>
+              <ul className="space-y-2">
+                {selectedProject.contributions.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Key Features */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Key Features</h4>
+              <ul className="space-y-2">
+                {selectedProject.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-xs font-medium text-zinc-900 dark:text-zinc-100">
+                    <svg className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
