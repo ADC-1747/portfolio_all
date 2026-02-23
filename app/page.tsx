@@ -68,13 +68,21 @@ export default function Home() {
                 />
               </div>
 
-              {/* Know more link */}
-              <Link
-                href="/aiml"
-                className="mt-3 inline-block text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
-              >
-                Know more →
-              </Link>
+              {/* Links */}
+              <div className="mt-3 flex gap-4">
+                <Link
+                  href="/aiml"
+                  className="inline-block text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                >
+                  Know more →
+                </Link>
+                <Link
+                  href="/aiml?q=Tell me about your role as a Project Associate at IIT Madras and your work on AI pipelines."
+                  className="inline-block text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                >
+                  Ask AI →
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -98,7 +106,7 @@ export default function Home() {
                 Know more →
               </Link>
               <Link
-                href="/aiml"
+                href="/aiml?q=Tell me about your Full Stack Developer experience and the DHARANI project."
                 className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
               >
                 Ask AI →
@@ -125,7 +133,7 @@ export default function Home() {
                 Know more →
               </Link>
               <Link
-                href="/aiml"
+                href="/aiml?q=Tell me about your Quant Research experience at WorldQuant."
                 className="text-xs font-medium text-zinc-900 hover:underline dark:text-zinc-100"
               >
                 Ask AI →
@@ -155,7 +163,7 @@ export default function Home() {
               </Link>
               <span>or</span>
               <Link
-                href="/aiml"
+                href="/aiml?q=Tell me about your overall AI/ML expertise and what you're passionate about."
                 className="font-medium text-zinc-950 hover:underline dark:text-zinc-50"
               >
                 The AI/ML guy

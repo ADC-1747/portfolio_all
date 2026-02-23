@@ -1,13 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import StreamingText from '../components/StreamingText';
 
-export default function Aiml() {
+function ChatInterface() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const queryHandled = useRef(false);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -16,6 +20,38 @@ export default function Aiml() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  const handleSend = async (customInput?: string) => {
+    const textToSend = customInput || input;
+    if (!textToSend.trim()) return;
+
+    const userMessage = { sender: 'user', text: textToSend };
+    setMessages((prev) => [...prev, userMessage]);
+    if (!customInput) setInput('');
+
+    // Show typing indicator
+    setIsTyping(true);
+
+    // Simulate AI response delay
+    setTimeout(() => {
+      const aiMessage = {
+        sender: 'ai',
+        text: getHardcodedResponse(textToSend)
+      };
+      setMessages((prev) => [...prev, aiMessage]);
+      setIsTyping(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    const query = searchParams.get('q');
+    if (query && !queryHandled.current) {
+      handleSend(query);
+      queryHandled.current = true;
+      // Clear query from URL without refreshing
+      router.replace('/aiml', { scroll: false });
+    }
+  }, [searchParams, router]);
 
   const examplePrompts = [
     "Tell me about your core AI/ML skills.",
@@ -43,6 +79,18 @@ export default function Aiml() {
       return "I developed LSTM-based models for L1 and L2 level Order Book prediction. These models capture high-frequency market dynamics to predict price movement and spread changes over short time horizons.";
     }
 
+    if (q.includes("project associate") || q.includes("department of data science and ai")) {
+      return "As a Project Associate at IIT Madras in the Department of Data Science and AI, I work on DHARANI. My responsibilities include designing pipelines for alpha generation using LLMs, fine-tuning models with LoRA, and developing neural networks for high-precision sales forecasting (reducing MAPE from 16% to 2%). I also work on high-frequency market data like L1 and L2 Order Book prediction using LSTMs.";
+    }
+
+    if (q.includes("full stack") || q.includes("dharani")) {
+      return "As a Full Stack Developer at the Sudha Gopalakrishnan Brain Centre, IIT Madras, I've been a key contributor to the DHARANI project. I built scalable systems and internal platforms, including AI pipelines that are now used in production. My work focused on creating robust backend architectures and responsive, data-driven frontends to handle complex brain imaging data.";
+    }
+
+    if (q.includes("quant research") || q.includes("worldquant")) {
+      return "At WorldQuant, I serve as a Quant Research Consultant. My work involves high-level alpha research, factor modeling, and signal validation. I use various statistical and machine learning techniques to develop and backtest trading signals, ensuring they are robust across different market conditions.";
+    }
+
     if (q.includes("experience") || q.includes("work")) {
       return "I'm currently a Project Associate at IIT Madras (DS & AI Dept) working on DHARANI. I've also been a Quant Research Consultant at WorldQuant and a Full Stack Developer at the Sudha Gopalakrishnan Brain Centre.";
     }
@@ -50,27 +98,7 @@ export default function Aiml() {
     return "That's a great question! I'm Ayush, and I'm passionate about building scalable AI systems. Whether it's fine-tuning LLMs, predicting market movements, or developing full-stack platforms, I love tackling complex technical challenges.";
   };
 
-  const handleSend = async (customInput?: string) => {
-    const textToSend = customInput || input;
-    if (!textToSend.trim()) return;
 
-    const userMessage = { sender: 'user', text: textToSend };
-    setMessages((prev) => [...prev, userMessage]);
-    if (!customInput) setInput('');
-
-    // Show typing indicator
-    setIsTyping(true);
-
-    // Simulate AI response delay
-    setTimeout(() => {
-      const aiMessage = {
-        sender: 'ai',
-        text: getHardcodedResponse(textToSend)
-      };
-      setMessages((prev) => [...prev, aiMessage]);
-      setIsTyping(false);
-    }, 1000);
-  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-zinc-50 dark:bg-black p-4">
@@ -171,5 +199,17 @@ export default function Aiml() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Aiml() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-zinc-50 dark:bg-black p-4">
+        <div className="text-zinc-500 animate-pulse">Loading Chat...</div>
+      </div>
+    }>
+      <ChatInterface />
+    </Suspense>
   );
 }
