@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import SectionContainer from '../components/SectionContainer';
 
 function TerminalIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -78,8 +79,8 @@ export default function QuantTerminal() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-600 dark:text-zinc-300 p-4 md:p-8 font-mono overflow-x-hidden selection:bg-green-500/30 selection:text-green-500">
-      <div className="max-w-7xl mx-auto space-y-6 pt-16">
+    <div className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-600 dark:text-zinc-300 py-4 md:py-8 font-mono overflow-x-hidden selection:bg-green-500/30 selection:text-green-500">
+      <SectionContainer variant="full" className="space-y-6 pt-16">
 
         {/* Top Market Ticker */}
         <div className="bg-white/80 dark:bg-zinc-900/80 border-y border-zinc-200 dark:border-zinc-800 py-2 -mx-8 relative overflow-hidden group">
@@ -116,7 +117,7 @@ export default function QuantTerminal() {
               LIVE DATA CONNECTION ESTABLISHED
             </div>
             <h1 className="text-3xl font-black text-zinc-950 dark:text-white tracking-tighter">QUANT_TERMINAL_v1.0</h1>
-            <p className="text-xs text-zinc-500">AYUSH: SENIOR QUANTITATIVE RESEARCHER & FULL-STACK ENGINEER</p>
+            <p className="text-xs text-zinc-500">AYUSH: AI/ML ENGINEER, FULL-STACK ENGINEER & QUANTITATIVE RESEARCH CONSULTANT</p>
           </div>
           <div className="text-right space-y-1">
             <div className="text-[10px] text-zinc-500">SYSTEM DATE</div>
@@ -131,7 +132,7 @@ export default function QuantTerminal() {
           <div className="lg:col-span-1 space-y-6">
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
               <StatTile label="Fit Score" value="8.7/10" sub="Top 2% of cohort" />
-              <StatTile label="Experience" value="5 Yrs" sub="Alpha generation focus" />
+              <StatTile label="Experience" value="2+ Yrs" sub="Alpha generation focus" />
               <StatTile label="Backtests" value="120+" sub="98% confidence level" />
               <StatTile label="Live Strategies" value="2" sub="Real-money execution" />
             </div>
@@ -285,7 +286,7 @@ export default function QuantTerminal() {
           </div>
           <div className="italic">Property of Ayush — For quantitative verification only</div>
         </div>
-      </div>
+      </SectionContainer>
     </div>
   );
 }
