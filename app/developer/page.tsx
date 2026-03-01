@@ -44,6 +44,27 @@ export default function Portfolio() {
     },
     {
       id: 3,
+      title: "Trading App",
+      description: "A trading app similar to a stock exchange, where users can trade stocks.",
+      url: "https://github.com/ADC-1747/Trading_App",
+      tags: ["Python", "React", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+      contributions: [
+        "Designed the architecture of the trading app similar to a stock exchange",
+        "Implemented real-time order matching engine",
+        "Implemented concurrent order matching",
+        "Implemented real-time market data fetching",
+        "Implemented real-time order book using websockets and redis"
+      ],
+      fullStack: ["Python", "React", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+      features: [
+        "Real-time order matching engine",
+        "Concurrent order matching",
+        "Real-time market data fetching",
+        "Real-time order book using websockets and redis"
+      ]
+    },
+    {
+      id: 4,
       title: "Store Provisioning platform",
       description: "A platform for provisioning stores on a single click.",
       url: "https://github.com/ADC-1747/store-platform",
@@ -62,7 +83,7 @@ export default function Portfolio() {
       ]
     },
     {
-      id: 4,
+      id: 5,
       title: "Stock Price Predictor",
       description: "LSTM-based stock price movement prediction tool",
       url: "https://example.com/stocks",
@@ -80,7 +101,7 @@ export default function Portfolio() {
       ]
     },
     {
-      id: 5,
+      id: 6,
       title: "AI Chatbot",
       description: "Intelligent personal assistant with streaming responses",
       url: "/aiml",
@@ -98,7 +119,7 @@ export default function Portfolio() {
       ]
     },
     {
-      id: 6,
+      id: 7,
       title: "Neural Style Transfer",
       description: "Artistic style transfer using pre-trained VGG-19",
       url: "https://example.com/art",
@@ -116,7 +137,7 @@ export default function Portfolio() {
       ]
     },
     {
-      id: 7,
+      id: 8,
       title: "Order Book Prediction",
       description: "High-frequency trading signal generation from LOB data",
       url: "https://example.com/quant",
@@ -242,7 +263,7 @@ export default function Portfolio() {
                   : 'opacity-60 hover:opacity-100'
                   }`}
               >
-                <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2 truncate">{project.title}</h3>
+                <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2">{project.title}</h3>
                 <p className={`text-zinc-600 dark:text-zinc-400 text-xs mb-2 leading-relaxed ${expandedProjects.has(project.id) ? '' : 'line-clamp-2'}`}>
                   {project.description}
                 </p>
