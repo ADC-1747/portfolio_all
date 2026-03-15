@@ -1047,13 +1047,13 @@
       },
       {
         "date": "2026-03-14",
-        "count": 0
+        "count": 1
       }
     ]
   ],
   "solved": {
-    "total": 32,
-    "easy": 19,
+    "total": 33,
+    "easy": 20,
     "medium": 12,
     "hard": 1
   }
