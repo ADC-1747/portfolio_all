@@ -1077,13 +1077,13 @@
       },
       {
         "date": "2026-03-21",
-        "count": 0
+        "count": 1
       }
     ]
   ],
   "solved": {
-    "total": 39,
-    "easy": 26,
+    "total": 40,
+    "easy": 27,
     "medium": 12,
     "hard": 1
   }
