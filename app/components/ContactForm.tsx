@@ -54,7 +54,7 @@ export default function ContactForm() {
                     Have a project in mind or just want to say hi? Feel free to send me a message.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                <form onSubmit={handleSubmit} className="mt-8 space-y-6" autoComplete="off">
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
                             <label
@@ -70,6 +70,7 @@ export default function ContactForm() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                autoComplete="off"
                                 className="mt-1 block w-full rounded-lg border border-zinc-200 bg-white px-4 py-2 text-zinc-900 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-400 dark:focus:ring-zinc-400"
                                 placeholder="John Doe"
                             />
@@ -88,6 +89,7 @@ export default function ContactForm() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                autoComplete="off"
                                 className="mt-1 block w-full rounded-lg border border-zinc-200 bg-white px-4 py-2 text-zinc-900 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-400 dark:focus:ring-zinc-400"
                                 placeholder="john@example.com"
                             />
@@ -108,6 +110,7 @@ export default function ContactForm() {
                             value={formData.message}
                             onChange={handleChange}
                             required
+                            autoComplete="off"
                             className="mt-1 block w-full rounded-lg border border-zinc-200 bg-white px-4 py-2 text-zinc-900 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-400 dark:focus:ring-zinc-400"
                             placeholder="Your message here..."
                         />
