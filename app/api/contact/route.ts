@@ -15,10 +15,9 @@ export async function POST(request: Request) {
 
             return NextResponse.json(
                 {
-                    message: "Contact form is not yet configured with an API key. Your message was logged to the server console.",
-                    debug: { name, email, message }
+                    message: "Contact form is not yet configured with an API key.",
                 },
-                { status: 200 }
+                { status: 500 }
             );
         }
 
