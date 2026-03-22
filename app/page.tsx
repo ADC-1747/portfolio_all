@@ -3,6 +3,7 @@ import Link from "next/link";
 import GitHubContributions from "./components/GitHubContributions";
 import LeetCodeContributions from "./components/LeetCodeContributions";
 import Education from "./components/Education";
+import ContactForm from "./components/ContactForm";
 import SectionContainer from "./components/SectionContainer";
 import StreamingText from "./components/StreamingText";
 
@@ -198,6 +199,7 @@ export default function Home() {
             <GitHubContributions />
             <LeetCodeContributions />
             <Education />
+            <ContactForm />
 
             {/* Social Links */}
             <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-600 dark:text-zinc-400">
