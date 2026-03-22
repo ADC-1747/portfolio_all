@@ -5,6 +5,12 @@ export async function POST(request: Request) {
     try {
         const { name, email, message } = await request.json();
 
+        // Server-side validation
+        if (!name || !email || !message) {
+            console.error("Missing fields in contact form submission:", { name, email, message });
+            return NextResponse.json({ error: "Name, email, and message are required." }, { status: 400 });
+        }
+
         const apiKey = process.env.RESEND_API_KEY;
 
         // Check if API key is set in environment (Azure Configuration or .env.local)
