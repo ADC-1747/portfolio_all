@@ -20,7 +20,11 @@ export default function ContactForm() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    name: formData.name.trim(),
+                    email: formData.email.trim(),
+                    message: formData.message.trim(),
+                }),
             });
 
             if (response.ok) {
