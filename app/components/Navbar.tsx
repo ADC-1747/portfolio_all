@@ -9,6 +9,7 @@ const navLinks = [
     { name: "AI/ML", href: "/aiml" },
     { name: "Developer", href: "/developer" },
     { name: "Quant", href: "/quant" },
+    { name: "Contact", href: "/#contact" },
     { name: "Resume", href: "/resume.pdf", isDownload: true },
 ];
 
