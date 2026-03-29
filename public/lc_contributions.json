@@ -1107,13 +1107,13 @@
       },
       {
         "date": "2026-03-28",
-        "count": 0
+        "count": 2
       }
     ]
   ],
   "solved": {
-    "total": 45,
-    "easy": 32,
+    "total": 46,
+    "easy": 33,
     "medium": 12,
     "hard": 1
   }
