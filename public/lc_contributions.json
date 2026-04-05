@@ -1137,13 +1137,13 @@
       },
       {
         "date": "2026-04-04",
-        "count": 0
+        "count": 1
       }
     ]
   ],
   "solved": {
-    "total": 49,
-    "easy": 36,
+    "total": 50,
+    "easy": 37,
     "medium": 12,
     "hard": 1
   }
