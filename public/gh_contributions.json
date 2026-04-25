@@ -2,38 +2,6 @@
   {
     "contributionDays": [
       {
-        "date": "2025-04-13",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-14",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-15",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-16",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-17",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-18",
-        "contributionCount": 0
-      },
-      {
-        "date": "2025-04-19",
-        "contributionCount": 0
-      }
-    ]
-  },
-  {
-    "contributionDays": [
-      {
         "date": "2025-04-20",
         "contributionCount": 0
       },
@@ -1671,7 +1639,59 @@
       },
       {
         "date": "2026-04-13",
-        "contributionCount": 0
+        "contributionCount": 2
+      },
+      {
+        "date": "2026-04-14",
+        "contributionCount": 10
+      },
+      {
+        "date": "2026-04-15",
+        "contributionCount": 4
+      },
+      {
+        "date": "2026-04-16",
+        "contributionCount": 1
+      },
+      {
+        "date": "2026-04-17",
+        "contributionCount": 9
+      },
+      {
+        "date": "2026-04-18",
+        "contributionCount": 5
+      }
+    ]
+  },
+  {
+    "contributionDays": [
+      {
+        "date": "2026-04-19",
+        "contributionCount": 1
+      },
+      {
+        "date": "2026-04-20",
+        "contributionCount": 4
+      },
+      {
+        "date": "2026-04-21",
+        "contributionCount": 6
+      },
+      {
+        "date": "2026-04-22",
+        "contributionCount": 16
+      },
+      {
+        "date": "2026-04-23",
+        "contributionCount": 52
+      },
+      {
+        "date": "2026-04-24",
+        "contributionCount": 22
+      },
+      {
+        "date": "2026-04-25",
+        "contributionCount": 1
       }
     ]
   }
