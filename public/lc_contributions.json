@@ -1227,14 +1227,14 @@
       },
       {
         "date": "2026-04-25",
-        "count": 0
+        "count": 3
       }
     ]
   ],
   "solved": {
-    "total": 69,
+    "total": 70,
     "easy": 50,
     "medium": 18,
-    "hard": 1
+    "hard": 2
   }
 }
