@@ -1287,14 +1287,14 @@
       },
       {
         "date": "2026-05-09",
-        "count": 0
+        "count": 1
       }
     ]
   ],
   "solved": {
-    "total": 83,
+    "total": 84,
     "easy": 51,
-    "medium": 29,
+    "medium": 30,
     "hard": 3
   }
 }
