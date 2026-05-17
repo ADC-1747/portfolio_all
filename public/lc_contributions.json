@@ -1317,14 +1317,14 @@
       },
       {
         "date": "2026-05-16",
-        "count": 0
+        "count": 1
       }
     ]
   ],
   "solved": {
-    "total": 90,
+    "total": 91,
     "easy": 53,
     "medium": 33,
-    "hard": 4
+    "hard": 5
   }
 }
